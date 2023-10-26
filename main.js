@@ -40,8 +40,8 @@ $(function(){
         {
           breakpoint:968,
           settings:{
-          slidesToShow:2,
-          variableWidth:false,
+          slidesToShow:1,
+          variableWidth:true,
         }},
         {
           breakpoint: 320,
@@ -266,8 +266,3 @@ function fadeAnime(){
   $(window).on('load', function(){
     fadeAnime();/* アニメーション用の関数を呼ぶ*/
   });// ここまで画面が読み込まれたらすぐに動かしたい場合の記述
-
-
-    /*-------------------------------------------
-スクロールしていくと円が描画されるアニメーション
--------------------------------------------*/
