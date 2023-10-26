@@ -1,84 +1,41 @@
 /*-------------------------------------------
 スワイパーの読み込み
 -------------------------------------------*/
-// mainvisual
-  $(document).ready(function(){
-    $('.mainvisual-class').slick({
-      pauseOnHover: false,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      centerPadding: '25vw',//ポイント！！！
-      // loop:true,
-      dots:true,
-      variableWidth:true,
-      centerMode: true,
-      responsive:[
-        {
-          breakpoint:968,
-          settings:{
-          slidesToShow:1,
-          centerMode: true,
-          
-        }},
-      ],
-    });
+$(function(){
+  $('.mainvisual-class').slick({
+    pauseOnHover: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerPadding: '25vw',
+    autoplay: true,
+    autoplaySpeed: 5000,
+    dots: true,
+    variableWidth: true,
+    centerMode: true,
+    responsive: [
+      {
+        breakpoint: 968,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true
+        }
+      },
+    ]
   });
-// idが「video」の要素を取得
-var video = document.getElementById('video');
-// 自動再生する
-video.autoplay = true;
-// 繰り返し再生する
-video.loop = true;
-// 無音で再生する
-video.muted = true;
-// 再生位置を指定する
-video.currentTime = 5;
-
-//   // YouTubeの埋め込み
-// function onYouTubeIframeAPIReady() {
-//   ytPlayer = new YT.Player(
-//   'youtube', // 埋め込む場所の指定
-//   {
-//       videoId: 'q6T0wOMsNrI', // YouTubeのID
-//       playerVars: {
-//           height: '100%',
-//           width: '100%',
-//           loop: 1,//ループ設定
-//           playlist: 'q6T0wOMsNrI',//次に流すYouTubeのID　loopの設定が１の場合必須
-//           controls: 0,//コントローラー無し
-//           autoplay: 1,//オートプレイ
-//           showinfo: 0,//動画タイトル表示しない
-//           rel: 0,//関連動画の制御
-//           iv_load_policy: 3,//動画のアノテーション
-//           start: 30 ,//スタート秒数の指定
-//           mute:0
-//       },
-//       events: {
-//           'onReady': onPlayerReady
-//       }
-//   }
-//   );
-//   }
-//   //プレイ準備完了後
-//   function onPlayerReady(event) {
-//   event.target.playVideo();
-//   event.target.mute();
-//   }
-  
-  
+  });  
 
 // 主な製品ラインナップ
   $(document).ready(function(){
     $('.products-class').slick({
       pauseOnHover: false,
-      slidesToShow: 5,
+      slidesToShow: 1, // 1つのスライドのみを表示
       slidesToScroll: 1,
-      // loop:true,
       dots: true,
       arrows: false,
       dotsClass: 'slider-dots',
       variableWidth:true,
       centerPadding: '20px',
+
       responsive:[
         {
           breakpoint:968,
