@@ -95,76 +95,6 @@ $(document).ready(function(){
   
 
   /*-------------------------------------------
-円を描画するアニメーション  半径:200px
--------------------------------------------*/
-  
-  //    // スクロールイベント
-  //    window.addEventListener('scroll', function() {
-  //     // アニメーションを呼び出す
-  //     animateCircle();
-  // });
-
-  // function animateCircle() {
-  //     // 要素の縦位置を取得
-  //     let target = document.querySelector('.svg1').getBoundingClientRect().top;
-  //     // スクロール量を取得
-  //     let scroll = window.scrollY;
-  //     // 表示画面の高さを取得
-  //     let windowHeight = window.innerHeight;
-
-  //     // アニメーションをトリガーする条件
-  //     if (scroll > target - windowHeight + 0) {
-  //         document.querySelector('.circle1').style.animation = 'circle1 2s forwards'; // アニメーションを有効に
-  //     }
-  // }
-  // // 初回のスクロールイベントをトリガー
-  // animateCircle();
-  //    // スクロールイベント
-  //    window.addEventListener('scroll', function() {
-  //     // アニメーションを呼び出す
-  //     animateCircle();
-  // });
-
-  // function animateCircle() {
-  //     // 要素の縦位置を取得
-  //     let target = document.querySelector('.svg2').getBoundingClientRect().top;
-  //     // スクロール量を取得
-  //     let scroll = window.scrollY;
-  //     // 表示画面の高さを取得
-  //     let windowHeight = window.innerHeight;
-
-  //     // アニメーションをトリガーする条件
-  //     if (scroll > target - windowHeight + 0) {
-  //         document.querySelector('.circle2').style.animation = 'circle2 2s forwards'; // アニメーションを有効に
-  //     }
-  // }
-  // // 初回のスクロールイベントをトリガー
-  // animateCircle();
-  /*-------------------------------------------
-円を描画するアニメーション  半径:160px
--------------------------------------------*/
-//  // スクロールイベント
-//  window.addEventListener('scroll', function() {
-//   // アニメーションを呼び出す
-//   animateCircle();
-// });
-
-// function animateCircle() {
-//   // 要素の縦位置を取得
-//   let target = document.querySelector('.svg2,.sv').getBoundingClientRect().top;
-//   // スクロール量を取得
-//   let scroll = window.scrollY;
-//   // 表示画面の高さを取得
-//   let windowHeight = window.innerHeight;
-
-//   // アニメーションをトリガーする条件
-//   if (scroll > target - windowHeight + 200) {
-//       document.querySelector('.circle2').style.animation = 'circle2 2s forwards'; // アニメーションを有効に
-//   }
-// }
-// // 初回のスクロールイベントをトリガー
-// animateCircle();
-  /*-------------------------------------------
 画面を下にスクロールしていくと
 アルファベットがランダムに変化してWe Value Serendipity.が出現
 -------------------------------------------*/
@@ -188,8 +118,6 @@ function TypingAnime() {
         arr[i].duration = 800;//テキストが最終変化するまでの時間※規定値600
         $(this).addClass("endAnime");//１度アニメーションした場合はendAnimeクラスを追加
       }
-    }else{
-      $(this).removeClass("endAnime"); //範囲外にスクロールした場合はendAnimeのクラスを削除
     }
   });
 }
@@ -220,11 +148,6 @@ function slideAnime(){
         //テキスト要素を挟む親要素（左側）とテキスト要素を元位置でアニメーションをおこなう
         $(this).addClass("slideAnimeLeftRight"); //要素を左枠外にへ移動しCSSアニメーションで左から元の位置に移動
         $(this).children(".leftAnimeInner").addClass("slideAnimeRightLeft");  //子要素は親要素のアニメーションに影響されないように逆の指定をし元の位置をキープするアニメーションをおこなう
-      }else{
-        //左から右へ表示するクラスを取り除く
-        $(this).removeClass("slideAnimeLeftRight");
-        $(this).children(".leftAnimeInner").removeClass("slideAnimeRightLeft");
-        
       }
     }); 
   }
@@ -252,8 +175,6 @@ function fadeAnime(){
     var windowHeight = $(window).height();
     if (scroll >= elemPos - windowHeight){
     $(this).addClass('fadeUp');// 画面内に入ったらfadeUpというクラス名を追記
-    }else{
-    $(this).removeClass('fadeUp');// 画面外に出たらfadeUpというクラス名を外す
     }
     });
 }
@@ -266,3 +187,4 @@ function fadeAnime(){
   $(window).on('load', function(){
     fadeAnime();/* アニメーション用の関数を呼ぶ*/
   });// ここまで画面が読み込まれたらすぐに動かしたい場合の記述
+
