@@ -98,7 +98,7 @@ $(document).ready(function(){
 画面を下にスクロールしていくと
 アルファベットがランダムに変化してWe Value Serendipity.が出現
 -------------------------------------------*/
-
+var TypingAnimed =false
 var arr = []
 //初期値の設定
 function TypingInit() {
@@ -117,6 +117,7 @@ function TypingAnime() {
         arr[i].start();//配列で登録テキストのアニメーションをおこなう
         arr[i].duration = 800;//テキストが最終変化するまでの時間※規定値600
         $(this).addClass("endAnime");//１度アニメーションした場合はendAnimeクラスを追加
+        TypingAnimed =true;
       }
     }
   });
@@ -137,6 +138,7 @@ $(window).on('load', function () {
   /*-------------------------------------------
 ABOUT-US 左から右に流れるテキスト
 -------------------------------------------*/
+var slideanimated = false; 
 function slideAnime(){
   //====左に動くアニメーションここから===
     $('.leftAnime').each(function(){ 
@@ -148,6 +150,7 @@ function slideAnime(){
         //テキスト要素を挟む親要素（左側）とテキスト要素を元位置でアニメーションをおこなう
         $(this).addClass("slideAnimeLeftRight"); //要素を左枠外にへ移動しCSSアニメーションで左から元の位置に移動
         $(this).children(".leftAnimeInner").addClass("slideAnimeRightLeft");  //子要素は親要素のアニメーションに影響されないように逆の指定をし元の位置をキープするアニメーションをおこなう
+        slideanimated = true;
       }
     }); 
   }
@@ -166,8 +169,8 @@ function slideAnime(){
 ABOUT-USセクション・ABOUTーUSテキストがふわっと出現する
 -------------------------------------------*/
   // 動きのきっかけとなるアニメーションの名前を定義
+var fadeanimated = false; 
 function fadeAnime(){
-
   // ふわっ
   $('.fadeUpTrigger').each(function(){ //fadeUpTriggerというクラス名が
     var elemPos = $(this).offset().top-50;//要素より、50px上の
@@ -175,6 +178,7 @@ function fadeAnime(){
     var windowHeight = $(window).height();
     if (scroll >= elemPos - windowHeight){
     $(this).addClass('fadeUp');// 画面内に入ったらfadeUpというクラス名を追記
+    fadeanimated =true;
     }
     });
 }
@@ -187,4 +191,3 @@ function fadeAnime(){
   $(window).on('load', function(){
     fadeAnime();/* アニメーション用の関数を呼ぶ*/
   });// ここまで画面が読み込まれたらすぐに動かしたい場合の記述
-
