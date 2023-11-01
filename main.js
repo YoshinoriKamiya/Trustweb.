@@ -1,14 +1,19 @@
 /*-------------------------------------------
 スワイパーの読み込み
 -------------------------------------------*/
-$(function(){
-  $('.mainvisual-class').slick({
+$(function () {
+  var mainVisualSlider = $('.mainvisual-class');
+  var videoElements = mainVisualSlider.find('.swiper-slide.video video');
+  var autoplaySpeed = 5000; // 切り替えまでの時間（5秒）
+  var currentCenterSlide = 0; // 現在のセンタースライドのインデックス
+
+  mainVisualSlider.slick({
     pauseOnHover: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     centerPadding: '25vw',
-    autoplay: true,
-    autoplaySpeed: 5000,
+    autoplay: true, // 自動再生を有効にする
+    autoplaySpeed: autoplaySpeed,
     dots: true,
     variableWidth: true,
     centerMode: true,
@@ -22,7 +27,35 @@ $(function(){
       },
     ]
   });
-  });  
+
+  mainVisualSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+    // スライドが切り替わる前に動画を停止
+    var currentSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentSlide + '"] video');
+    if (currentSlideVideo.length) {
+      currentSlideVideo[0].pause();
+      console.log("停止");
+    }
+  });
+
+  mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
+    // スライドが切り替わった後に動画再生を開始
+    currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックスを更新
+    playCenterVideo(); // センタースライドに到達したら動画再生
+  });
+
+  function playCenterVideo() {
+    // センタースライドに再生したい動画がある場合、再生
+    var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
+    if (centerSlideVideo.length) {
+      centerSlideVideo[0].play();
+      console.log("自動再生");
+    }
+  }
+
+  // スライダー初期化
+  mainVisualSlider.slick('slickGoTo', 0); // 初期位置に移動
+});
+
 
 // 主な製品ラインナップ
   $(document).ready(function(){
