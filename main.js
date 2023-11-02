@@ -1,78 +1,6 @@
 /*-------------------------------------------
 スワイパーの読み込み
 -------------------------------------------*/
-// $(function () {
-//   var mainVisualSlider = $('.mainvisual-class');
-//   var currentCenterSlide = 0; // 現在のセンタースライドのインデックス
-//   var defaultAutoplaySpeed = 5000; // 画像の切り替えまでのデフォルト時間（5秒）
-
-//   mainVisualSlider.slick({
-//     pauseOnHover: true,
-//     slidesToShow: 1,
-//     slidesToScroll: 1,
-//     centerPadding: '25vw',
-//     autoplay: false, // 自動再生を無効にする
-//     dots: true,
-//     variableWidth: true,
-//     centerMode: true,
-//     responsive: [
-//       {
-//         breakpoint: 968,
-//         settings: {
-//           slidesToShow: 1,
-//           centerMode: true
-//         }
-//       },
-//     ]
-//   });
-
-//   mainVisualSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-//     // スライドが切り替わる前に動画を停止
-//     var currentSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentSlide + '"] video');
-//     if (currentSlideVideo.length) {
-//       currentSlideVideo[0].pause();
-//       console.log("停止");
-//     }
-//   });
-
-//   mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
-//     // スライドが切り替わった後に動画再生を開始
-//     currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックス
-//     playCenterVideo(); // センタースライドに到達したら動画再生
-//   });
-
-//   function playCenterVideo() {
-//     // センタースライドに再生したい動画がある場合、再生
-//     var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
-//     if (centerSlideVideo.length) {
-//       centerSlideVideo[0].play();
-//       console.log("自動再生");
-
-//       // 動画が終了したら次のスライドに切り替える
-//       centerSlideVideo[0].addEventListener('ended', function () {
-//         mainVisualSlider.slick('slickNext');
-//       });
-//     } else {
-//       // 画像の場合はデフォルトの切り替え時間でスライド切り替える
-//       mainVisualSlider.slick('slickNext');
-//     }
-//   }
-
-//   // スライダー初期化
-//   mainVisualSlider.slick('slickGoTo', 0); // 初期位置に移動
-
-//   // 画像の切り替え時間を設定
-//   mainVisualSlider.on('init', function (event, slick) {
-//     // 画像の切り替え時間を設定
-//     var imageSlides = mainVisualSlider.find('.slick-slide:not(.video)');
-//     var imageAutoplaySpeed = defaultAutoplaySpeed;
-//     if (imageSlides.length) {
-//       imageAutoplaySpeed = imageSlides.length * defaultAutoplaySpeed;
-//     }
-//     slick.setOption('autoplaySpeed', imageAutoplaySpeed);
-//   });
-// });
-
 window.addEventListener('load', function() {
   var videos = document.querySelectorAll('.mainvisual-class video');
   videos.forEach(function(video) {
@@ -106,7 +34,6 @@ $(function () {
       },
     ]
   });
-
   mainVisualSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     // スライドが切り替わる前に動画を停止
     var currentSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentSlide + '"] video');
@@ -116,13 +43,11 @@ $(function () {
       console.log("停止");
     }
   });
-
   mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
     // スライドが切り替わった後に動画再生を開始
     currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックス
     playCenterVideo(); // センタースライドに到達したら動画再生
   });
-
   function playCenterVideo() {
     // センタースライドに再生したい動画がある場合、再生
     var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
@@ -131,7 +56,6 @@ $(function () {
       videoElement.currentTime=0;
       videoElement.play();
       console.log("自動再生");
-
       // 動画が終了したら次のスライドに切り替える
       videoElement.addEventListener('ended', function () {
         mainVisualSlider.slick('slickNext');
@@ -141,11 +65,8 @@ $(function () {
       mainVisualSlider.slick('slickNext');
     }
   }
-
   // スライダー初期化
   mainVisualSlider.slick('slickGoTo', 0); // 初期位置に移動
-
-
    // 動画の再生時間に合わせてautoplaySpeedを設定
    mainVisualSlider.on('setPosition', function (event, slick) {
     var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
