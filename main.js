@@ -1,19 +1,98 @@
 /*-------------------------------------------
 スワイパーの読み込み
 -------------------------------------------*/
+// $(function () {
+//   var mainVisualSlider = $('.mainvisual-class');
+//   var currentCenterSlide = 0; // 現在のセンタースライドのインデックス
+//   var defaultAutoplaySpeed = 5000; // 画像の切り替えまでのデフォルト時間（5秒）
+
+//   mainVisualSlider.slick({
+//     pauseOnHover: true,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     centerPadding: '25vw',
+//     autoplay: false, // 自動再生を無効にする
+//     dots: true,
+//     variableWidth: true,
+//     centerMode: true,
+//     responsive: [
+//       {
+//         breakpoint: 968,
+//         settings: {
+//           slidesToShow: 1,
+//           centerMode: true
+//         }
+//       },
+//     ]
+//   });
+
+//   mainVisualSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+//     // スライドが切り替わる前に動画を停止
+//     var currentSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentSlide + '"] video');
+//     if (currentSlideVideo.length) {
+//       currentSlideVideo[0].pause();
+//       console.log("停止");
+//     }
+//   });
+
+//   mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
+//     // スライドが切り替わった後に動画再生を開始
+//     currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックス
+//     playCenterVideo(); // センタースライドに到達したら動画再生
+//   });
+
+//   function playCenterVideo() {
+//     // センタースライドに再生したい動画がある場合、再生
+//     var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
+//     if (centerSlideVideo.length) {
+//       centerSlideVideo[0].play();
+//       console.log("自動再生");
+
+//       // 動画が終了したら次のスライドに切り替える
+//       centerSlideVideo[0].addEventListener('ended', function () {
+//         mainVisualSlider.slick('slickNext');
+//       });
+//     } else {
+//       // 画像の場合はデフォルトの切り替え時間でスライド切り替える
+//       mainVisualSlider.slick('slickNext');
+//     }
+//   }
+
+//   // スライダー初期化
+//   mainVisualSlider.slick('slickGoTo', 0); // 初期位置に移動
+
+//   // 画像の切り替え時間を設定
+//   mainVisualSlider.on('init', function (event, slick) {
+//     // 画像の切り替え時間を設定
+//     var imageSlides = mainVisualSlider.find('.slick-slide:not(.video)');
+//     var imageAutoplaySpeed = defaultAutoplaySpeed;
+//     if (imageSlides.length) {
+//       imageAutoplaySpeed = imageSlides.length * defaultAutoplaySpeed;
+//     }
+//     slick.setOption('autoplaySpeed', imageAutoplaySpeed);
+//   });
+// });
+
+window.addEventListener('load', function() {
+  var videos = document.querySelectorAll('.mainvisual-class video');
+  videos.forEach(function(video) {
+    video.pause();
+  });
+});
+
 $(function () {
   var mainVisualSlider = $('.mainvisual-class');
-  var videoElements = mainVisualSlider.find('.swiper-slide.video video');
-  var autoplaySpeed = 5000; // 切り替えまでの時間（5秒）
   var currentCenterSlide = 0; // 現在のセンタースライドのインデックス
+  var defaultAutoplaySpeed = 5000; // 画像の切り替えまでのデフォルト時間（5秒）
 
   mainVisualSlider.slick({
-    pauseOnHover: true,
+    pauseOnFocus: false,//フォーカスで一時停止
+    pauseOnHover: false,//マウスホバーで一時停止
     slidesToShow: 1,
     slidesToScroll: 1,
     centerPadding: '25vw',
     autoplay: true, // 自動再生を有効にする
-    autoplaySpeed: autoplaySpeed,
+    autoplaySpeed: defaultAutoplaySpeed, // デフォルトの自動再生時間を設定
     dots: true,
     variableWidth: true,
     centerMode: true,
@@ -33,13 +112,14 @@ $(function () {
     var currentSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentSlide + '"] video');
     if (currentSlideVideo.length) {
       currentSlideVideo[0].pause();
+      currentSlideVideo[0].currentTime = 0; // 動画を最初から再生
       console.log("停止");
     }
   });
 
   mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
     // スライドが切り替わった後に動画再生を開始
-    currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックスを更新
+    currentCenterSlide = currentSlide; // 現在のセンタースライドのインデックス
     playCenterVideo(); // センタースライドに到達したら動画再生
   });
 
@@ -47,20 +127,45 @@ $(function () {
     // センタースライドに再生したい動画がある場合、再生
     var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
     if (centerSlideVideo.length) {
-      centerSlideVideo[0].play();
+      var videoElement = centerSlideVideo[0];
+      videoElement.currentTime=0;
+      videoElement.play();
       console.log("自動再生");
+
+      // 動画が終了したら次のスライドに切り替える
+      videoElement.addEventListener('ended', function () {
+        mainVisualSlider.slick('slickNext');
+      });
+    } else {
+      // 画像の場合はデフォルトの切り替え時間でスライド切り替える
+      mainVisualSlider.slick('slickNext');
     }
   }
 
   // スライダー初期化
   mainVisualSlider.slick('slickGoTo', 0); // 初期位置に移動
+
+
+   // 動画の再生時間に合わせてautoplaySpeedを設定
+   mainVisualSlider.on('setPosition', function (event, slick) {
+    var centerSlideVideo = mainVisualSlider.find('.slick-slide[data-slick-index="' + currentCenterSlide + '"] video');
+    if (centerSlideVideo.length) {
+      var videoElement = centerSlideVideo[0];
+      var videoDuration = videoElement.duration * 1000; // 動画の再生時間をミリ秒で取得
+      slick.slickSetOption('autoplaySpeed', videoDuration);
+    } else {
+      slick.slickSetOption('autoplaySpeed', defaultAutoplaySpeed);
+    }
+  });
 });
+
+
+
 
 
 // 主な製品ラインナップ
   $(document).ready(function(){
     $('.products-class').slick({
-      pauseOnHover: false,
       slidesToShow: 1, // 1つのスライドのみを表示
       slidesToScroll: 1,
       dots: true,
