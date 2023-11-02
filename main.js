@@ -40,7 +40,7 @@ $(function () {
     if (currentSlideVideo.length) {
       currentSlideVideo[0].pause();
       currentSlideVideo[0].currentTime = 0; // 動画を最初から再生
-      console.log("停止");
+      // console.log("停止");
     }
   });
   mainVisualSlider.on('afterChange', function (event, slick, currentSlide) {
@@ -55,7 +55,7 @@ $(function () {
       var videoElement = centerSlideVideo[0];
       videoElement.currentTime=0;
       videoElement.play();
-      console.log("自動再生");
+      // console.log("自動再生");
       // 動画が終了したら次のスライドに切り替える
       videoElement.addEventListener('ended', function () {
         mainVisualSlider.slick('slickNext');
